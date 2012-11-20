@@ -1,0 +1,61 @@
+﻿
+<div style="margin: 5px">
+    <table id="GridMedicamento">
+    </table>
+    <div id="pager">
+    </div>
+    <input type="button" id="btnSalvarMedicamento" value="Adicionar" />
+    <input type="button" id="btnRemoverMedicamento" value="Remover Itens" />
+    <div id="dialog-confirm" title="Medicamentos" style="display: none">
+        <p>
+            <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+            Os itens selecionados serão excluídos permanentemente. Você tem certeza?</p>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var _MedicamentoId = new Array();
+    var pacienteId = '@Model.Id';
+
+    function GridMedicamento() {
+
+        $("#GridMedicamento").jqGrid({
+            url: '../CarregarMedicamentos/',
+            data: {},
+            datatype: 'json',
+            type: 'POST',
+            colNames: ['Id', 'Medicamento', 'Periodo', 'Dias/Meses'],
+            colModel: [
+                { name: "Id", hidden: true },
+                { name: "Nome", width: 200, editable: true },
+                { name: "Periodo", editable: true, width: 60 },
+                 { name: "TipoPeriodo", editable: true, width: 100, edittype: "select", editoptions: { value: "1:Dias;2:Meses"} }
+            ],
+            caption: "Medicamentos",
+            height: '100%',
+            rowNum: 10,
+            rowList: [5, 10, 20, 50],
+            viewrecords: true,
+            multiselect: true,
+            pager: "#pager",
+            editurl: '../IncluirMedicamentoAPaciente/'
+        });
+        $("#GridMedicamento").jqGrid('navGrid', '#pager', { add: false, del: false, edit: false, position: 'right', search: false, refresh: false });
+    }
+
+    $(function () {
+        GridMedicamento();
+
+        $("#btnSalvarMedicamento").click(function () {
+            jQuery("#GridMedicamento").jqGrid('editGridRow', "new", { top: 300, left: 500, width: 400, reloadAfterSubmit: false });
+
+        });
+
+        jQuery("#btnRemoverMedicamento").click(function () {
+            var MedicamentoId = jQuery("#GridMedicamento").jqGrid('getGridParam', 'selarrrow');
+            for (var i = 0; i < MedicamentoId.length; i++) {
+                jQuery("#GridMedicamento").jqGrid('delGridRow', MedicamentoId[i], { top: 300, left: 500, reloadAfterSubmit: false });
+            }
+        });
+    });
+</script>

@@ -1,0 +1,225 @@
+﻿@using SumarioDeAlta.Controller
+@model SumarioDeAlta.Domain.Entities.Paciente
+@{
+    ViewBag.Title = "DadosGerais";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    var _admissaoId = new Array();
+    var _alergiaId = new Array();
+    var pacienteId = '@Model.Id';
+
+    function SalvarDadosGerais() {
+
+        $("#TipoAlergia").find("input:checked").each(function (list, e) {
+            _alergiaId[list] = $(this).val();
+        });
+
+        $("#divMotivoadmissao").find("input:checked").each(function (list, e) {
+            _admissaoId[list] = $(this).val();
+        });
+
+        var descricaoAlergia = $("#DadosGerais_DescricaoAlergia").val();
+        var isAlergia = $("#isAlergia").val();
+        if (_admissaoId != "")
+            $.ajax({
+                url: "../SalvarDadosGerais",
+                data: "{'alergiaId':'" + _alergiaId + "'," +
+                        "'pacienteId':'" + pacienteId + "'," +
+                        "'descricaoAlergia':'" + descricaoAlergia + "'," +
+                        "'isAlergia':'" + isAlergia + "'," +
+                        "'admissaoId':'" + _admissaoId + "'" +
+                        "}",
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    window.location = '@Url.Action("Procedimento", new { @id = Model.Id })';
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert('Ocorreu um erro!');
+                }
+            });
+    }
+
+    function SalvarMotivoAdmissao() {
+        $("#divMotivoadmissao").find("input:checked").each(function (list, e) {
+            _admissaoId[list] = $(this).val();
+        });
+        if (_admissaoId != "")
+            $.ajax({
+                url: "../SalvarMotivoAdmissao",
+                data: "{'admissaoId':'" + _admissaoId + "','pacienteId':'" + pacienteId + "' }",
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert('Ocorreu um erro!');
+                }
+            });
+    }
+
+    function Accordeon() {
+        $("#accordion").accordion({
+            header: "> div > h3",
+            collapsible: true,
+            active: false,
+            autoHeight: false,
+            axis: "Y"
+        });
+    }
+
+    $(function () {
+        Accordeon();
+        $(function () {
+            $("#tabs").tabs();
+        });
+
+        
+        $("#btnSalvarDadosGerais").click(function () {
+           // SalvarDadosGerais();
+        });
+
+        $("#DadosGerais_DescricaoAlergia").attr({ disabled: true }).val("");
+        $(".chkAlergia").attr("disabled", "true");
+        $("#isAlergia").change(function () {
+            if ($("#isAlergia").val() == "true") {
+                $(".chkAlergia").removeAttr("disabled");
+                $("#DadosGerais_DescricaoAlergia").removeAttr("disabled");
+            } else {
+                $("#DadosGerais_DescricaoAlergia").attr({ disabled: true }).val("");
+                $(".chkAlergia").attr("disabled", "true").removeAttr("checked");
+            }
+        });
+    });
+</script>
+@using (Html.BeginForm())
+{
+   
+    
+    <div style="background-color: #1579A9;padding: 5px;color: white">
+        <label style="margin-right: 10px;font-weight: bold">@ViewBag.registro</label>  
+        <label style="margin-right: 10px;font-weight: bold">@ViewBag.Paciente</label> 
+        <label style="margin-right: 10px;font-weight: bold">@ViewBag.Internacao</label> 
+        <label style="margin-right: 10px;font-weight: bold">@ViewBag.AltaHospitalar</label> 
+    </div>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Dados Gerais</a></li>
+            <li><a href="#tabs-2">Procedimento(s)</a></li>
+            <li><a href="#tabs-3">Antimicrobiano(s)</a></li>
+            <li><a href="#tabs-4">Outros(s) Medicamento(s)Relevantes</a></li>
+            <li><a href="#tabs-5">Exame(s)</a></li>
+            <li><a href="#tabs-6">Hemotransfusão</a></li>
+            <li><a href="#tabs-7">Colonização por MDR</a></li>
+        </ul>
+        <div id="tabs-1">
+            @Html.ValidationSummary(true)
+            <div id="accordion" style="width: 90%">
+                <div>
+                    <h3>
+                        <a href="#">Motivo de Admisão:</a></h3>
+                    <div>
+                        <div>
+                            <fieldset data-role="none">
+                                <div id="divMotivoadmissao">
+                                    @foreach (var admissao in (new PacientesController()).TodasAdmissoes())
+                                    {
+                                        <label>
+                                            <input type="checkbox"  data-role="none" name="checkbox-0"  value='@admissao.Id'/>
+                                            @admissao.Nome
+                                        </label>
+                            
+                                    }
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>
+                        <a href="#">Alergia</a></h3>
+                    <div id="divAlergia">
+                        <label for="flip-1" style="display: block; font-weight: bold">
+                            Alergia Medicamentos e Outras:</label>
+                        <select name="flip-1" id="isAlergia" data-role="slider">
+                            <option value="false" selected="selected">Não</option>
+                            <option value="true">Sim</option>
+                        </select>
+                        <div class="Alergia">
+                            <div class="editor-label">
+                                @Html.LabelFor(x => x.DadosGerais.DescricaoAlergia)
+                            </div>
+                            <div class="editor-field">
+                                @Html.EditorFor(x => x.DadosGerais.DescricaoAlergia)
+                            </div>
+                            <div id="TipoAlergia">
+                                <fieldset data-role="none">
+                                    @foreach (var alergia in (new PacientesController()).TodasAlergias())
+                                    {
+                                        <label>
+                                            <input type="checkbox" class="chkAlergia" data-role="none" name="checkbox-0"  value='@alergia.Id'/>
+                                            @alergia.Nome
+                                        </label>
+                                    }
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>
+                        <a href="#">Diagnóstico</a></h3>
+                    <div>
+                        @{
+                                    Html.RenderPartial("GridDiagnosticoControl");
+                        }
+                    </div>
+                </div>
+            </div>
+            <div style="margin: 180px 0;">
+               
+                <input type="button" value="Salvar" id="btnSalvarDadosGerai11s" />
+            </div>
+        </div>
+        <div id="tabs-2">
+            @{
+                                    Html.RenderPartial("Procedimento");
+            }
+        </div>
+        <div id="tabs-3">
+            @{
+                                    Html.RenderPartial("Antimicrobianos");
+            }
+        </div>
+        <div id="tabs-4">
+            @{
+                                    Html.RenderPartial("Medicamentos");
+            }
+        </div>
+        <div id="tabs-5">
+            @{
+                                    Html.RenderPartial("Exames");
+            }
+        </div>
+        <div id="tabs-6">
+            @{
+                                    Html.RenderPartial("Hemotrasnfusao");
+            }
+        </div>
+        <div id="tabs-7">
+            @{
+                                    Html.RenderPartial("ColonizacaoMdr");
+            }
+        </div>
+    </div>
+   
+}
+<div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

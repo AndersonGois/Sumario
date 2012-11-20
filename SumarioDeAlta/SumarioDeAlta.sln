@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SumarioDeAlta.Mvc", "SumarioDeAlta.Mvc\SumarioDeAlta.Mvc.csproj", "{7DC6A475-2BAB-45BE-B8C0-DB39624A5D7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SumarioDeAlta.Domain", "SumarioDeAlta.Domain\SumarioDeAlta.Domain.csproj", "{C7C467C8-37FD-419C-9784-025488BA2FC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SumarioDeAlta.Testes", "SumarioDeAlta.Testes\SumarioDeAlta.Testes.csproj", "{134B3B67-E7A8-4948-9D4C-16C1A807CFBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SumarioDeAlta.Controller", "SumarioDeAlta.Controller\SumarioDeAlta.Controller.csproj", "{669C06F3-E298-4823-9E67-FB752E4B27C3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7DC6A475-2BAB-45BE-B8C0-DB39624A5D7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DC6A475-2BAB-45BE-B8C0-DB39624A5D7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DC6A475-2BAB-45BE-B8C0-DB39624A5D7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DC6A475-2BAB-45BE-B8C0-DB39624A5D7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7C467C8-37FD-419C-9784-025488BA2FC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7C467C8-37FD-419C-9784-025488BA2FC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7C467C8-37FD-419C-9784-025488BA2FC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7C467C8-37FD-419C-9784-025488BA2FC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{134B3B67-E7A8-4948-9D4C-16C1A807CFBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{134B3B67-E7A8-4948-9D4C-16C1A807CFBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{134B3B67-E7A8-4948-9D4C-16C1A807CFBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{134B3B67-E7A8-4948-9D4C-16C1A807CFBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{669C06F3-E298-4823-9E67-FB752E4B27C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{669C06F3-E298-4823-9E67-FB752E4B27C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{669C06F3-E298-4823-9E67-FB752E4B27C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{669C06F3-E298-4823-9E67-FB752E4B27C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

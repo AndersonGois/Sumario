@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryGridLocale")
+    @Scripts.Render("~/bundles/jqueryGrid")
+    @Scripts.Render("~/bundles/jquerymobile")
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <div data-role="page" data-theme="c ">
+       
+        <div data-role="content">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

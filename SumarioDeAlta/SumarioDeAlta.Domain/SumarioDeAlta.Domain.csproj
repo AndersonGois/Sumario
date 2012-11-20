@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C7C467C8-37FD-419C-9784-025488BA2FC6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SumarioDeAlta.Domain</RootNamespace>
+    <AssemblyName>SumarioDeAlta.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\Lib\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\Lib\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\Lib\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\Lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\Lib\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.ByteCode.Castle">
+      <HintPath>..\Lib\NHibernate.ByteCode.Castle.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.LambdaExtensions">
+      <HintPath>..\Lib\NHibernate.LambdaExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\AdmissaoHospital.cs" />
+    <Compile Include="Entities\Alergias.cs" />
+    <Compile Include="Entities\Common\Tipo.cs" />
+    <Compile Include="Entities\Common\TipoSexo.cs" />
+    <Compile Include="Entities\DadosGerais.cs" />
+    <Compile Include="Entities\Diagnostico.cs" />
+    <Compile Include="Entities\Hospital.cs" />
+    <Compile Include="Entities\Interfaces\IAggregateRoot.cs" />
+    <Compile Include="Entities\Medicamento.cs" />
+    <Compile Include="Entities\Paciente.cs" />
+    <Compile Include="Entities\Admissao.cs" />
+    <Compile Include="Entities\Procedimento.cs" />
+    <Compile Include="Entities\TipoDiagnostico.cs" />
+    <Compile Include="Entities\TipoPaciente.cs" />
+    <Compile Include="Entities\TipoProcedimento.cs" />
+    <Compile Include="Mappings\AdmissaoHospitalMap.cs" />
+    <Compile Include="Mappings\AlergiaMap.cs" />
+    <Compile Include="Mappings\DadosGeraisMap.cs" />
+    <Compile Include="Mappings\DiagnosticoMap.cs" />
+    <Compile Include="Mappings\HospitalMap.cs" />
+    <Compile Include="Mappings\MedicamentoMap.cs" />
+    <Compile Include="Mappings\PacienteMap.cs" />
+    <Compile Include="Mappings\AdmissaoMap.cs" />
+    <Compile Include="Mappings\ProcedimentoMap.cs" />
+    <Compile Include="Mappings\TipoDiagnosticoMap.cs" />
+    <Compile Include="Mappings\TipoPacienteMap.cs" />
+    <Compile Include="Mappings\TipoProcedimentoMap.cs" />
+    <Compile Include="Mappings\TipoSexoMap.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AdmissaoHospitals.cs" />
+    <Compile Include="Repository\BaseRepository.cs" />
+    <Compile Include="Repository\DadosGeral.cs" />
+    <Compile Include="Repository\Diagnosticos.cs" />
+    <Compile Include="Repository\Hospitais.cs" />
+    <Compile Include="Repository\Medicamentos.cs" />
+    <Compile Include="Repository\Pacientes.cs" />
+    <Compile Include="Repository\Admissaos.cs" />
+    <Compile Include="Repository\Alergias.cs" />
+    <Compile Include="Repository\Procedimentos.cs" />
+    <Compile Include="Repository\TipoDiagnosticos.cs" />
+    <Compile Include="Repository\TipoPacientes.cs" />
+    <Compile Include="Repository\TipoProcedimentos.cs" />
+    <Compile Include="Repository\TiposDeSexo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryGridLocale")
+    @Scripts.Render("~/bundles/jqueryGrid")
+    @* @Scripts.Render("~/bundles/jquerymobile")*@
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <div class="page">
+        <div class="header topo">
+           
+            <h1 class="titulo" style="margin-right: 20px; text-align: left;">
+                 <img src="~/Content/images/logo.png" alt="" />
+            </h1>
+        </div>
+        <div class="main">
+            <div class="grid-12-12">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</body>
+</html>

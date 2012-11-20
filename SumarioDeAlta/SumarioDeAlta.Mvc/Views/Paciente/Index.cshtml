@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main">
+    <div class="ui-widget" style="margin: 10px 10px">
+        @*<label>
+        Prontuario:</label>
+    <input type="text" id="txtProntuario" />
+    <label>
+        CPF:</label>
+    <input type="text" id="txtCpf" />*@
+        <label>
+            Paciente:</label>
+        <input type="text" id="txtPaciente" style="width: 30%" />
+    </div>
+    @{
+        Html.RenderPartial("GridPacienteControl");
+    }
+</div>
+

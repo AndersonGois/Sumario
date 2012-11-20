@@ -1,0 +1,67 @@
+﻿
+<div style="margin: 5px">
+    <table id="GridReceituario">
+    </table>
+    <div id="pager">
+    </div>
+    <input type="button" id="btnSalvarReceituario" value="Adicionar" />
+    <input type="button" id="btnRemoverReceituario" value="Remover Itens" />
+    <div id="dialog-confirm" title="Receituarios" style="display: none">
+        <p>
+            <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+            Os itens selecionados serão excluídos permanentemente. Você tem certeza?</p>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var _ReceituarioId = new Array();
+    var pacienteId = '@Model.Id';
+    /*Id = 1, Nome = "Novalgina",Dose = "1" ,TipoDose = "ml" ,Apresentacao = "1",TipoApresentacao = "Gota",Via = "Articular",Frequencia = "Em caso de Diarréia",Duracao = "1",TipoDuaracao = "Meses"};*/
+    function GridReceituario() {
+
+        $("#GridReceituario").jqGrid({
+            url: '../CarregarReceituarios/',
+            data: {},
+            datatype: 'json',
+            type: 'POST',
+            colNames: ['Id', 'Medicamento', 'Dose','','Apresentação','','Via','Frequência','Duração',''],
+            colModel: [
+                { name: "Id", hidden: true },
+                { name: "Nome", width: 140, editable: true, edittype: "select", editoptions: { value: "1:Novalgina"} },
+                { name: "Dose", editable: true, width: 40},
+                { name: "TipoDose", editable: true, width: 40, edittype: "select", editoptions: { value: "1:ml" } },
+                { name: "Apresentacao", width: 100, editable: true },
+                { name: "TipoApresentacao", width: 40, editable: true, edittype: "select", editoptions: { value: "1:Gota"} },
+                { name: "Via", editable: true, width: 100 },
+                { name: "Frequencia", editable: true, width: 150},
+                { name: "Duracao", editable: true, width: 70 },
+                { name: "TipoDuaracao", editable: true, width: 60, edittype: "select", editoptions: { value: "1:Meses;2:Dias"} }
+            ],
+            caption: "Receituarios",
+            height: '100%',
+            rowNum: 10,
+            rowList: [5, 10, 20, 50],
+            viewrecords: true,
+            multiselect: true,
+            pager: "#pager",
+            editurl: '../IncluirReceituarioAPaciente/'
+        });
+        $("#GridReceituario").jqGrid('navGrid', '#pager', { add: false, del: false, edit: false, position: 'right', search: false, refresh: false });
+    }
+
+    $(function () {
+        GridReceituario();
+
+        $("#btnSalvarReceituario").click(function () {
+            jQuery("#GridReceituario").jqGrid('editGridRow', "new", { top: 300, left: 500, width: 500, reloadAfterSubmit: false });
+            $("#DataReceituario").datepicker();
+        });
+
+        jQuery("#btnRemoverReceituario").click(function () {
+            var ReceituarioId = jQuery("#GridReceituario").jqGrid('getGridParam', 'selarrrow');
+            for (var i = 0; i < ReceituarioId.length; i++) {
+                jQuery("#GridReceituario").jqGrid('delGridRow', ReceituarioId[i], { top: 300, left: 500, reloadAfterSubmit: false });
+            }
+        });
+    });
+</script>

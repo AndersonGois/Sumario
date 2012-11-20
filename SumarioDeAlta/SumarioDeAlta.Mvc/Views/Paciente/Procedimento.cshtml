@@ -1,0 +1,123 @@
+﻿@model SumarioDeAlta.Domain.Entities.Paciente
+@*@{
+    ViewBag.Title = "Procedimento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+*@
+<div style="margin: 5px">
+    <table id="GridProcedimento">
+    </table>
+    <div id="pager">
+    </div>
+    <input type="button" id="btnSalvarProcedimento" value="Adicionar" />
+    <input type="button" id="btnRemoverProcedimento" value="Remover Itens" />
+    <div id="dialog-confirm" title="Procedimentos" style="display: none">
+        <p>
+            <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+            Os itens selecionados serão excluídos permanentemente. Você tem certeza?</p>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    var _procedimentoId = new Array();
+    var pacienteId = '@Model.Id';
+
+    function ExcluirProcedimento(procedimentoId, pacienteId) {
+
+        if (procedimentoId != "")
+            $("#dialog-confirm").dialog({
+                resizable: false,
+                height: 160,
+                width: 450,
+                modal: true,
+                buttons: {
+                    "Excluir": function () {
+                        $.ajax({
+                            url: "../ExcluirProcedimento",
+                            data: "{'procedimentoId':'" + procedimentoId + "','pacienteId':'" + pacienteId + "' }",
+                            dataType: "json",
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            success: function (data) {
+                                jQuery("#GridProcedimento").jqGrid('setGridParam', {
+                                    url: '../CarregarProcedimentos/'
+                                }).trigger("reloadGrid");
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alert('Ocorreu um erro!');
+                            }
+                        });
+                        $(this).dialog("close");
+                    },
+                    Cancelar: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+    }
+
+    function GridProcedimento(list) {
+
+        $("#GridProcedimento").jqGrid({
+            url: '../CarregarProcedimentos/',
+            data: {},
+            datatype: 'json',
+            type: 'POST',
+            colNames: ['Id', 'Procedimento', 'Data'],
+            colModel: [
+                { name: "Id", hidden: true },
+                { name: "Nome", width: 400, editable: true, edittype: "select", editoptions: { value: list} },
+                { name: "DataProcedimento", editable: true, width: 140 }
+
+            ],
+            caption: "Procedimentos",
+            height: '100%',
+            rowNum: 10,
+            rowList: [5, 10, 20, 50],
+            viewrecords: true,
+            multiselect: true,
+            pager: "#pager",
+            editurl: '../IncluirProcedimentoAPaciente/'
+        });
+        $("#GridProcedimento").jqGrid('navGrid', '#pager', { add: false, del: false, edit: false, position: 'right', search: false, refresh: false });
+    }
+    
+    function CarregarListaProcedimentos() {
+        $.ajax({
+            url: "../ListadeProcedimento",
+            data: { },
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            success: function(data) {
+                GridProcedimento(data);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert('Ocorreu um erro!');
+            }
+        });
+    }
+
+    $(function () {
+        CarregarListaProcedimentos();
+
+        $("#btnSalvarProcedimento").click(function () {
+            jQuery("#GridProcedimento").jqGrid('editGridRow', "new", { top: 300, left: 500, width: 400, reloadAfterSubmit: false });
+            $("#DataProcedimento").datepicker();
+        });
+
+
+        jQuery("#btnRemoverProcedimento").click(function () {
+            var procedimentoId = jQuery("#GridProcedimento").jqGrid('getGridParam', 'selarrrow');
+            for (var i = 0; i < procedimentoId.length; i++) {
+            jQuery("#GridProcedimento").jqGrid('delGridRow', procedimentoId[i], { top: 300, left: 500, reloadAfterSubmit: false });
+//            var arrayProcedimento = new Array();
+//            for (var i = 0; i < procedimentoId.length; i++) {
+//                var pro = $("#GridProcedimento").jqGrid('getCell', i + 1, 1);
+//                arrayProcedimento[i] = pro;
+           }
+//            ExcluirProcedimento(arrayProcedimento, pacienteId);
+        });
+    });
+</script>

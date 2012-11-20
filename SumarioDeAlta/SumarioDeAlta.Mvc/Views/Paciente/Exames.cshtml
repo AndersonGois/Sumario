@@ -1,0 +1,62 @@
+﻿
+
+<div style="margin: 5px">
+    <table id="GridExame">
+    </table>
+    <div id="pager">
+    </div>
+    <input type="button" id="btnSalvarExame" value="Adicionar" />
+    <input type="button" id="btnRemoverExame" value="Remover Itens" />
+    <div id="dialog-confirm" title="Exames" style="display: none">
+        <p>
+            <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+            Os itens selecionados serão excluídos permanentemente. Você tem certeza?</p>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var _ExameId = new Array();
+    var pacienteId = '@Model.Id';
+
+    function GridExame() {
+
+        $("#GridExame").jqGrid({
+            url: '../CarregarExames/',
+            data: {},
+            datatype: 'json',
+            type: 'POST',
+            colNames: ['Id', 'Tipo Exame', 'Resultado', 'Data'],
+            colModel: [
+                { name: "Id", hidden: true },
+                { name: "TipoExame", width: 140, editable: true , edittype: "select", editoptions: { value: "1:Laboratorio;2:Radiografia"}},
+                { name: "Resultado", editable: true, width: 500, edittype: "textarea", editoptions: { rows: "2", cols: "50"} },
+                 { name: "DataExame", editable: true, width:100 }
+            ],
+            caption: "Exames",
+            height: '100%',
+            rowNum: 10,
+            rowList: [5, 10, 20, 50],
+            viewrecords: true,
+            multiselect: true,
+            pager: "#pager",
+            editurl: '../IncluirExameAPaciente/'
+        });
+        $("#GridExame").jqGrid('navGrid', '#pager', { add: false, del: false, edit: false, position: 'right', search: false, refresh: false });
+    }
+
+    $(function () {
+        GridExame();
+
+        $("#btnSalvarExame").click(function () {
+            jQuery("#GridExame").jqGrid('editGridRow', "new", { top: 300, left: 500, width: 500, reloadAfterSubmit: false });
+            $("#DataExame").datepicker();
+        });
+
+        jQuery("#btnRemoverExame").click(function () {
+            var ExameId = jQuery("#GridExame").jqGrid('getGridParam', 'selarrrow');
+            for (var i = 0; i < ExameId.length; i++) {
+                jQuery("#GridExame").jqGrid('delGridRow', ExameId[i], { top: 300, left: 500, reloadAfterSubmit: false });
+            }
+        });
+    });
+</script>
