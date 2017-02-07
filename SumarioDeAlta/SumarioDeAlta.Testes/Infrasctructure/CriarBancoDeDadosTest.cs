@@ -17,10 +17,10 @@ namespace SumarioDeAlta.Testes.Infrasctructure
     public class CriarBancoDeDadosTest
     {
         [Test]
-        //[Ignore]
+        [Ignore]
         public void a__Criar_Banco_De_Dados_Por_Modelo()
         {
-            Fluently.Configure().Database(MsSqlConfiguration.MsSql2005.ConnectionString(c => c
+            Fluently.Configure().Database(MsSqlConfiguration.MsSql2008.ConnectionString(c => c
            .FromAppSetting("Conexao")
             )).Mappings(m => m.FluentMappings.AddFromAssemblyOf<Paciente>()).Mappings(m => m.MergeMappings())
             .ExposeConfiguration(BuildSchema).BuildSessionFactory();
